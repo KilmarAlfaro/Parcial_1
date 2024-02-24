@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">Conversores</string>
-    <string-array name="spnLongitud">
-        <item>Metros</item>
-        <item>Cm</item>
-        <item>Pulgada</item>
-        <item>Pie</item>
-        <item>Varas</item>
-        <item>Yardas</item>
-        <item>Km</item>
-        <item>Millas</item>
+    <string name="app_name">Calculadora</string>
+    <string-array name="spnopciones">
+        <item>Suma</item>
+        <item>Resta</item>
+        <item>Multiplicacion</item>
+        <item>Division</item>
+        <item>Porcentaje</item>
+        <item>Exponenciacion</item>
+        <item>Factorial</item>
+        <item>Raiz</item>
     </string-array>
 </resources>

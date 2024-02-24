@@ -1,5 +1,7 @@
 package com.ugb.controlesbasicos;
 
+import static java.lang.Math.pow;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -12,46 +14,51 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    TabHost tbh;
+
     TextView tempVal;
-    Spinner spn;
     Button btn;
-    conversores objConversor = new conversores();
+    RadioGroup opt;
+    Spinner spn;
+
+    TabHost tbh;
+
+
+
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tbh = findViewById(R.id.tbhConversores);
+        tbh= findViewById(R.id.TbhParcial);
         tbh.setup();
-        tbh.addTab(tbh.newTabSpec("LON").setIndicator("LONGITUD", null).setContent(R.id.tabLogitud));
-        tbh.addTab(tbh.newTabSpec("MON").setIndicator("MONEDAS", null).setContent(R.id.tabMonedas));
-        tbh.addTab(tbh.newTabSpec("ALM").setIndicator("ALMACENAMIENTO", null).setContent(R.id.tabAlmacenamiento));
 
-        btn = findViewById(R.id.btnCalcularLongitud);
-        btn.setOnClickListener(new View.OnClickListener() {
+        tbh.addTab(tbh.newTabSpec("AGUA").setContent(R.id.TabTarifaAgua).setIndicator("AGUA",null));
+        tbh.addTab(tbh.newTabSpec("AREA").setContent(R.id.TabConversor).setIndicator("AREA",null));
+
+        btn=findViewById(R.id.BtnTarifaAgua);
+
+        btn.setOnClickListener(new View.OnClickListener()  {
             @Override
-            public void onClick(View view) {
-                spn = findViewById(R.id.spnDeLongitud);
-                int de = spn.getSelectedItemPosition();
+            public void onClick(View v) {
+                tempVal = findViewById(R.id.txtCantidadAgua);
+                double mts=Double.parseDouble(tempVal.getText().toString());
+                double tarifa = 0;
+                if (mts  >= 1 && mts <= 18) {
+                    tarifa = mts * 6;
 
-                spn = findViewById(R.id.spnALongitud);
-                int a = spn.getSelectedItemPosition();
 
-                tempVal = findViewById(R.id.txtCantidadLongitud);
-                double cantidad= Double.parseDouble(tempVal.getText().toString());
-                double resp = objConversor.convertir(0, de, a, cantidad);
+                } else if (mts >= 19 && mts <= 28) {
+                    tarifa  = ((mts - 18) * 0.45) + 6;
 
-                Toast.makeText(getApplicationContext(), "Respuesta: "+ resp, Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    tarifa = (((mts - 28)* 0.65 ) + (28-18)*0.45)+6;
+                }
+                Toast.makeText(getApplicationContext(), "Su tarifa de agua es de: $"+ tarifa, Toast.LENGTH_SHORT).show();
+
             }
         });
-    }
-}
-class conversores{
-    double[][] valores = {
-            {1, 100, 39.3701, 3.28084, 1.193, 1.09361, 0.001, 0.000621371}
-    };
-    public double convertir(int opcion, int de, int a, double cantidad){
-        return valores[opcion][a] / valores[opcion][de] * cantidad;
     }
 }
