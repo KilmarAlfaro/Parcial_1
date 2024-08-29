@@ -1,1 +1,1 @@
-<br> Integrantes</br>
+<b> Integrantes</b>
